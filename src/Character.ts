@@ -51,6 +51,12 @@ export type CharacterSkillLevelName =
   | "expert"
   | "master";
 
+export type CharacterProps = {
+  name: string;
+  stats: CharacterBaseStats;
+  skills: CharacterSkills;
+};
+
 export class Character {
   name: string = "New Character";
 
@@ -74,34 +80,34 @@ export class Character {
     survival: 0,
   };
 
-  constructor(
-    name?: string,
-    stats?: CharacterBaseStats,
-    skills?: CharacterSkills
-  ) {
+  constructor(props: Partial<CharacterProps> = {}) {
+    const { name, stats, skills } = props;
     if (name) {
       this.name = name.slice(0, 20) + (name.length > 20 ? "..." : "");
     }
     if (stats) {
       const entries = getEntries(stats);
-      let statPointsLeft = Character.totalStatPoints;
+      let pointsLeft = Character.totalStatPoints;
       entries.forEach(([stat, value]) => {
         this.baseStats[stat] = Math.min(
-          statPointsLeft,
-          Math.max(0, Math.min(Character.maxBaseStats[stat], value))
+          pointsLeft,
+          Character.maxBaseStats[stat],
+          Math.max(0, value)
         );
-        statPointsLeft -= this.baseStats[stat];
+        pointsLeft -= this.baseStats[stat];
       });
     }
     if (skills) {
       const entries = getEntries(skills);
-      let skillPointsLeft = Character.totalSkillPoints;
+      let pointsLeft = Character.totalSkillPoints;
       entries.forEach(([skill, value]) => {
         this.skills[skill] = Math.min(
-          skillPointsLeft,
-          Math.max(0, Math.min(Character.maxSkillLevel, value))
+          pointsLeft,
+          this.baseStats[Character.skillsBaseStats[skill]],
+          Character.maxSkillLevel,
+          Math.max(0, value)
         );
-        skillPointsLeft -= this.skills[skill];
+        pointsLeft -= this.skills[skill];
       });
     }
   }
@@ -152,7 +158,7 @@ export class Character {
 
   static maxSkillLevel = 5;
   static totalStatPoints = 15;
-  static totalSkillPoints = 30;
+  static totalSkillPoints = 20;
 
   static zeroStats: CharacterBaseStats = {
     strength: 0,
@@ -223,6 +229,21 @@ export class Character {
     health: { primary: "#db1d6c", secondary: "#f0d1de" },
   };
 
+  static skillsBaseStats: {
+    [key in CharacterSkillName]: CharacterBaseStatName;
+  } = {
+    attack: "strength",
+    archery: "agility",
+    stealth: "agility",
+    learning: "intelligence",
+    medicine: "intelligence",
+    survival: "intelligence",
+    intimidation: "charisma",
+    insight: "charisma",
+    manipulation: "charisma",
+    appearance: "charisma",
+  };
+
   static skillLevelNames: CharacterSkillLevelName[] = [
     "novice",
     "beginner",
@@ -253,6 +274,14 @@ export class Character {
     intelligence: "mage",
     strength: "warrior",
   };
+
+  toJSON(): CharacterProps {
+    return {
+      name: this.name,
+      stats: this.baseStats,
+      skills: this.skills,
+    };
+  }
 }
 
 export default Character;

@@ -9,7 +9,12 @@ export type CharactersStore = {
 };
 
 export const useCharactersStore = create<CharactersStore>((set) => ({
-  characters: [new Character("John Doe", { strength: 10, agility: 5, intelligence: 0, charisma: 0})],
+  characters: [
+    new Character({
+      name: "John Doe",
+      stats: { strength: 10, agility: 5, intelligence: 0, charisma: 0 },
+    }),
+  ],
   addCharacter: (character) =>
     set((state) => ({
       characters: [...state.characters, character ?? new Character()],
