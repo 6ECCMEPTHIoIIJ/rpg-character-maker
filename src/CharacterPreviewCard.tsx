@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useRef, useState } from "react";
+import { forwardRef, useCallback, useState } from "react";
 import Character from "./Character";
 import CharacterPreviewImage from "./CharacterPreviewImage";
 import CharacterPreviewBaseStatsList from "./CharacterPreviewListBaseStats";
@@ -27,8 +27,6 @@ export const CharacterPreviewCard = forwardRef<
   const clazz = character.getClass(character.getMainStat());
 
   const [reversed, setReversed] = useState(false);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const baseStatsListRef = useRef<HTMLUListElement>(null);
 
   const handleClick = useCallback(() => {
     setReversed((к) => !к);
@@ -54,13 +52,10 @@ export const CharacterPreviewCard = forwardRef<
     >
       <CardActionArea title="Click to toggle details" onClick={handleClick}>
         <Collapse in={!reversed}>
-          <CharacterPreviewImage clazz={clazz} ref={imageRef} />
+          <CharacterPreviewImage clazz={clazz} />
         </Collapse>
         <Collapse in={reversed}>
-          <CharacterPreviewBaseStatsList
-            stats={baseStats}
-            ref={baseStatsListRef}
-          />
+          <CharacterPreviewBaseStatsList stats={baseStats} />
         </Collapse>
         <Divider />
         <CharacterPreviewDerivedStatsList stats={derivedStats} />
