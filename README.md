@@ -2,6 +2,42 @@
 
 This is a simple RPG character editor that allows you to create and edit characters for a role-playing game. The editor is written in React TS and uses Zustand for state management.
 
+## Install & Run
+
+1. Clone repository 
+HTTPS https://github.com/6ECCMEPTHIoIIJ/rpg-character-maker.git
+```
+git clone https://github.com/6ECCMEPTHIoIIJ/rpg-character-maker.git
+```
+SSH git@github.com:6ECCMEPTHIoIIJ/rpg-character-maker.git
+```
+git clone git@github.com:6ECCMEPTHIoIIJ/rpg-character-maker.git
+```
+2. Move to rpg-character-maker dir
+```
+cd rpg-character-maker
+```
+3. Install dependencies
+NPM
+```
+npm intall
+```
+YARN
+```
+yarn
+```
+4. Run project
+NPM
+```
+npm run dev
+```
+YARN
+```
+yarn dev
+```
+5. Visit site
+In terminal you will see link to the locally hosted site. By default its [Localhost:5173](http://localhost:5173/)
+
 ## Features
 
 ### Create a new character
