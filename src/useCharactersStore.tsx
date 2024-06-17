@@ -6,27 +6,11 @@ export type CharactersStore = {
     addCharacter: (character?: Character) => void;
     removeCharacter: (index: number) => void;
     updateCharacter: (index: number, character: Character) => void;
+    setCharacters: (characters: Character[]) => void;
 };
 
 export const useCharactersStore = create<CharactersStore>((set) => ({
-    characters: [
-        new Character({
-            name: "John Doe",
-            stats: {strength: 4, agility: 4, intelligence: 4, charisma: 4},
-            skills: {
-                appearance: 3,
-                archery: 2,
-                attack: 7,
-                intimidation: 2,
-                insight: 2,
-                learning: 2,
-                manipulation: 2,
-                medicine: 2,
-                stealth: 2,
-                survival: 2,
-            }
-        }),
-    ],
+    characters: [],
     addCharacter: (character) =>
         set((state) => ({
             characters: [...state.characters, character ?? new Character()],
@@ -39,6 +23,7 @@ export const useCharactersStore = create<CharactersStore>((set) => ({
         set((state) => ({
             characters: state.characters.map((c, i) => (i === index ? character : c)),
         })),
+    setCharacters: (characters) => set({characters}),
 }));
 
 export default useCharactersStore;

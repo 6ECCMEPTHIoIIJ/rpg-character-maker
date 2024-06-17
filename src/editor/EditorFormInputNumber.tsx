@@ -15,27 +15,29 @@ export const EditorFormInputNumber: FC<EditorFormInputNumberProps> = ({min = 0, 
     }
 
     return (
-        <Input inputProps={{
-            min,
-            max,
-            type: "number",
-        }}
-               disabled={max===min}
-               onChange={(e) => {
-                   onChange?.(parseValue(e.target.value));
-               }}
+        <>
+            <Input inputProps={{
+                min,
+                max,
+                type: "number",
+            }}
+                   disabled={max === min}
+                   onChange={(e) => {
+                       onChange?.(parseValue(e.target.value));
+                   }}
 
-               onBlur={() => {
-                   if (!inputRef.current) return;
-                   const value = parseValue(inputRef.current.value);
-                   if (value < min) onChange?.(min);
-                   else if (value > max) onChange?.(max);
-               }}
+                   onBlur={() => {
+                       if (!inputRef.current) return;
+                       const value = parseValue(inputRef.current.value);
+                       if (value < min) onChange?.(min);
+                       else if (value > max) onChange?.(max);
+                   }}
 
-               inputRef={inputRef}
+                   inputRef={inputRef}
 
-               {...rest}
-        />
+                   {...rest}
+            />
+        </>
     );
 };
 

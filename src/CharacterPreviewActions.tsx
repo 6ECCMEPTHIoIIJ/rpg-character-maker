@@ -1,4 +1,4 @@
-import {FC, useCallback} from "react";
+import {FC} from "react";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,21 +22,13 @@ export const CharacterPreviewActions: FC<CharacterPreviewActionsProps> = ({
                                                                               onDuplicate,
                                                                               ...rest
                                                                           }) => {
-    const handleEdit = useCallback(() => {
-        onEdit?.(index);
-    }, [onEdit, index]);
+    const handleEdit = () => onEdit?.(index);
 
-    const handleExport = useCallback(() => {
-        onExport?.(index);
-    }, [onExport, index]);
+    const handleExport = () => onExport?.(index);
 
-    const handleDelete = useCallback(() => {
-        onDelete?.(index);
-    }, [onDelete, index]);
+    const handleDelete = () => onDelete?.(index);
 
-    const handleDuplicate = useCallback(() => {
-        onDuplicate?.(index);
-    }, [onDuplicate, index]);
+    const handleDuplicate = () => onDuplicate?.(index);
 
     return (
         <Box {...rest} display="flex" justifyContent="center" gap={2}>

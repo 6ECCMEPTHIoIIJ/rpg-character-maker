@@ -16,110 +16,115 @@ import Button from "@mui/material/Button";
 
 export type CharacterPreviewCardProps = CardProps & {
     character: Character;
+    preview?: boolean;
 };
 
 export const CharacterPreviewCard = forwardRef<
-    HTMLDivElement,
-    CharacterPreviewCardProps
->(({character, sx, ...rest}, ref) => {
-    const baseStats = character.getBaseStats();
-    const derivedStats = character.getDerivedStats();
-    const clazz = character.getClass(character.getMainStat());
+        HTMLDivElement,
+        CharacterPreviewCardProps
+    >(({character, sx, preview, ...rest}, ref
+        ) => {
+            const baseStats = character.getBaseStats();
+            const derivedStats = character.getDerivedStats();
+            const clazz = character.getClass(character.getMainStat());
 
-    const [reversed, setReversed] = useState(false);
+            const [reversed, setReversed] = useState(false);
 
-    const handleClick = useCallback(() => {
-        setReversed((r) => !r);
-    }, []);
+            const handleClick = useCallback(() => {
+                setReversed((r) => !r);
+            }, []);
 
-    return (
-        <Card
-            {...rest}
-            ref={ref}
-            sx={{
-                ...sx,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                transition: "transform 0.5s, filter 0.5s, zIndex 0.5s",
-                "&:hover": {
-                    transform:
-                        "scale(1.05) perspective(400px) rotate3D(1, 1, 0, -10deg) translate(5px, -20px)",
-                    filter: "drop-shadow(-5px 20px 0.1rem rgba(0, 0, 0, 0.3))",
-                    zIndex: 1,
-                },
-            }}
-        >
-            <Box sx={{
-                position: "relative"
-            }}>
-                <Button variant="contained" color="error" sx={{
-                    fontSize: 40,
-                    position: "absolute",
-                    top: "0",
-                    left: "0",
-                    bottom: "0",
-                    right: 0,
-                    zIndex: 1000,
-                    opacity: 0,
-                    transition: "opacity 0.5s",
-                    "&:hover": {
-                        opacity: 0.8
-                    },
-                }}>Battle</Button>
-                <Collapse in={!reversed}>
-                    <CharacterPreviewImage clazz={clazz}/>
-                </Collapse>
-                <Collapse in={reversed}>
-                    <CharacterPreviewBaseStatsList stats={baseStats}/>
-                </Collapse>
-                <Divider/>
-                <CharacterPreviewDerivedStatsList stats={derivedStats}/>
-                <Divider/>
-            </Box>
-            <Box>
-                <CardContent
+            return (
+                <Card
+                    {...rest}
+                    ref={ref}
                     sx={{
+                        ...sx,
+                        width: "300px",
                         display: "flex",
-                        alignItems: "start",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        transition: "transform 0.5s, filter 0.5s, zIndex 0.5s",
+                        "&:hover": {
+                            transform:
+                                "scale(1.05) perspective(400px) rotate3D(1, 1, 0, -10deg) translate(5px, -20px)",
+                            filter: "drop-shadow(-5px 20px 0.1rem rgba(0, 0, 0, 0.3))",
+                            zIndex: 1,
+                        },
                     }}
                 >
-                    <Box sx={{maxWidth: "70%"}}>
-                        <Typography
-                            component="div"
-                            variant="h5"
-                            title={character.name}
-                            sx={{
-                                textOverflow: "ellipsis",
-                                overflow: "hidden",
-                            }}
-                        >
-                            {character.name}
-                        </Typography>
-                        <Typography
-                            variant="caption"
-                            sx={{color: Character.classColors[clazz]}}
-                        >
-                            {capitalize(clazz)}
-                        </Typography>
+                    <Box sx={{
+                        position: "relative"
+                    }}>
+                        {!preview && <Button variant="contained" color="error" sx={{
+                            fontSize: 40,
+                            position: "absolute",
+                            top: "0",
+                            left: "0",
+                            bottom: "0",
+                            right: 0,
+                            zIndex: 1000,
+                            opacity: 0,
+                            transition: "opacity 0.5s",
+                            "&:hover": {
+                                opacity: 0.8
+                            },
+                        }}>Battle</Button>}
+                        <Collapse in={!reversed}>
+                            <CharacterPreviewImage clazz={clazz}/>
+                        </Collapse>
+                        <Collapse in={reversed}>
+                            <CharacterPreviewBaseStatsList stats={baseStats}/>
+                        </Collapse>
+                        <Divider/>
+                        <CharacterPreviewDerivedStatsList stats={derivedStats}/>
+                        <Divider/>
                     </Box>
-
-                    <IconButton
-                        sx={{marginLeft: "auto"}}
-                        onClick={handleClick}
-                        title="Click to toggle details"
-                    >
-                        <KeyboardArrowUp
-                            style={{
-                                transform: `rotate(${reversed ? 180 : 0}deg)`,
-                            }}
+                    <Box>
+                        <CardContent
                             sx={{
-                                transition: "transform 0.2s",
+                                display: "flex",
+                                alignItems: "start",
                             }}
-                        />
-                    </IconButton>
-                </CardContent>
-            </Box>
-        </Card>
-    );
-});
+                        >
+                            <Box sx={{maxWidth: "70%"}}>
+                                <Typography
+                                    component="div"
+                                    variant="h5"
+                                    title={character.name}
+                                    sx={{
+                                        textOverflow: "ellipsis",
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    {character.name}
+                                </Typography>
+                                <Typography
+                                    variant="caption"
+                                    sx={{color: Character.classColors[clazz]}}
+                                >
+                                    {capitalize(clazz)}
+                                </Typography>
+                            </Box>
+
+                            <IconButton
+                                sx={{marginLeft: "auto"}}
+                                onClick={handleClick}
+                                title="Click to toggle details"
+                            >
+                                <KeyboardArrowUp
+                                    style={{
+                                        transform: `rotate(${reversed ? 180 : 0}deg)`,
+                                    }}
+                                    sx={{
+                                        transition: "transform 0.2s",
+                                    }}
+                                />
+                            </IconButton>
+                        </CardContent>
+                    </Box>
+                </Card>
+            );
+        }
+    )
+;

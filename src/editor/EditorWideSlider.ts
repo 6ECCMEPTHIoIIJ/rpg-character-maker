@@ -26,6 +26,8 @@ export const EditorWideSlider = styled(Slider)`
     .MuiSlider-mark {
         height: 10px;
     }
+
+    transition: width 0.2s, margin-right 0.2s;
 `;
 
 export default EditorWideSlider;

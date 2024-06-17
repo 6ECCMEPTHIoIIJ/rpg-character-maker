@@ -1,13 +1,12 @@
 import {FC} from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import MyCharacters from "./MyCharacters";
-import TestView from "./test/TestView.tsx";
+import {Main} from "./main/Main.tsx";
 
 const App: FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<TestView/>}/>
+                <Route path="/" element={<Main/>}/>
             </Routes>
         </BrowserRouter>
     );
