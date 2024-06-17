@@ -24,17 +24,21 @@ You can also edit values in the exported character and then iomport it. Attempt 
 
 ### Edit an existing character 
 
+You can also edit character name, base stats and skills values. Derived stats such as `Health` computes automatically and are unable to edit.
+After finishing editing you can save changes by clicking `SAVE CHANGES BUTTON`
 ![2024-06-18 00-37-45 (4)](https://github.com/6ECCMEPTHIoIIJ/rpg-character-maker/assets/96795933/b2aa5b4c-685b-4a08-b3aa-3cf7f3b2c914)
-
+then al changes will by applied to edited character. You can also revert edited stats to initiali values before editing or completely discard all changes witout saving.
 
 ### Delete a character
 
-### Duplicate existing characters with all its stats and skills
+You can delte one of created characters by clicking delete button. If you have alredy exported deleting character than you may upload him again.
 
-## Character stats limitations
+## Character stats and skills system explanation
 
 - All base stats except `Charisma` are capped at 10 points (`Charisma` is limited by 5)
 - The total number of stat points is capped at 15 points, which means you cannot have a character whose `Strength` and `Agility` are set to 10 point each
 - In that point derived stats have limitations based on their base stats limits (`Energy`  has a limit of 15 points instead of 20, since it depends on two characteristics at the same time)
 - All skills have 5 levels from `Novice` to `Expert`. Each skill also limited by the base stat value it depends on
 - The total number of skill points is limited by 20
+- A character's class depends on his base stats. Initially, each character has a base class of `Nomad`. To get a specialization class character must have at least one basic characteristic with a value has at least 5 points
+- Character picture picks automatically and depends on character class
