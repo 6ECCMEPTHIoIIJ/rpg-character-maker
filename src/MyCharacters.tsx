@@ -5,6 +5,7 @@ import useCharactersStore from "./useCharactersStore";
 import Character, {CharacterProps} from "./Character";
 import {CharacterEditor} from "./CharacterEditor.tsx";
 import CharacterPreviewCardsList from "./CharacterPreviewCardsList.tsx";
+import Box from "@mui/material/Box";
 
 export const MyCharacters: FC = () => {
     const {characters, addCharacter, removeCharacter} = useCharactersStore();
@@ -75,32 +76,28 @@ export const MyCharacters: FC = () => {
                 />
             </Container>
             {!!editingCharacter && (
-                <Container
-                    sx={{
-                        position: "fixed",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
-                        zIndex: 1800,
-                        "&:before": {
-                            content:  '""',
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundColor: "rgba(0, 0, 0, 0.5)",
-                            zIndex: -1,
-                        }
-                    }}
-                >
-                    <CharacterEditor character={editingCharacter} onSave={(c) => {
-                        addCharacter(new Character(
-                            {name: c.name, stats: {...c.baseStats}, skills: {...c.skills}}
-                        ));
-                        setEditingCharacter(undefined);
-                    }}/>
-                </Container>
+                <Box sx={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    zIndex: 1800,
+                }}>
+                    <Container
+                        sx={{
+                            position: "fixed",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                        }}
+                    >
+                        <CharacterEditor character={editingCharacter} onSave={() => {
+                            setEditingCharacter(undefined);
+                        }}/>
+                    </Container>
+                </Box>
             )}
         </>
     );

@@ -65,7 +65,12 @@ export const CharacterEditor: FC<CharacterEditorProps> = ({onSave, character, ..
             <Card>
                 <CardActions sx={{justifyContent: "end", padding: 0}}>
                     <ButtonGroup>
-                        <Button sx={{borderTopLeftRadius: 0}} onClick={() => onSave?.(previewCharacter)}>
+                        <Button sx={{borderTopLeftRadius: 0}} onClick={() => {
+                            character.name = previewCharacter.name;
+                            character.baseStats = {...previewCharacter.baseStats};
+                            character.skills = {...previewCharacter.skills};
+                            onSave?.(previewCharacter)
+                        }}>
                             <Save/>
                         </Button>
                         <Button onClick={() => restore()}>
