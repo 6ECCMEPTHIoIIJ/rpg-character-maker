@@ -15,7 +15,6 @@ import getEntries from "../getEntries.ts";
 import {Controller, useForm} from "react-hook-form";
 import EditorFormSliderSlave from "./EditorFormSliderSlave.tsx";
 import EditorFormInputText from "./EditorFormInputText.tsx";
-import useFormPersist from "react-hook-form-persist";
 
 export type EditorProps = {
     character: Character,
@@ -48,8 +47,6 @@ export const Editor: FC<EditorProps> = ({
     const name = watch("name");
     const stats = watch("stats");
     const skills = watch("skills");
-
-    useFormPersist("editor-form", {watch, setValue});
 
     const handleRevert = () => {
         setValue("name", characterName);

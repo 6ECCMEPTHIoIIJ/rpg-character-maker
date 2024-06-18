@@ -12,6 +12,7 @@ export type CharacterPreviewCardsListProps = BoxProps &
     > &
     Pick<AddCharacterButtonProps, "onAdd" | "onImport"> & {
     characters: Character[];
+    editing?: boolean;
 };
 
 export const CharacterPreviewCardsList: FC<CharacterPreviewCardsListProps> = ({
@@ -22,6 +23,7 @@ export const CharacterPreviewCardsList: FC<CharacterPreviewCardsListProps> = ({
                                                                                   onExport,
                                                                                   onAdd,
                                                                                   onImport,
+                                                                                  editing,
                                                                                   sx,
                                                                                   ...rest
                                                                               }) => {
@@ -52,6 +54,7 @@ export const CharacterPreviewCardsList: FC<CharacterPreviewCardsListProps> = ({
                         character={character}
                         sx={{width: "280px", height: lastCardHeight, minHeight: "450px"}}
                         ref={lastCardRef}
+                        editing={editing}
                     />
                     <CharacterPreviewActions
                         index={i}

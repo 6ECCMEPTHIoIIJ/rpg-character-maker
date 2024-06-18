@@ -118,6 +118,7 @@ export const Main: FC = () => {
                     onDuplicate={handleDuplicateCharacter}
                     onExport={handleExportCharacter}
                     onImport={handleImportCharacter}
+                    editing={editingCharacterIndex !== undefined}
                 />
                 <Dialog maxWidth="xl" open={editingCharacterIndex !== undefined}>
                     {editingCharacterIndex !== undefined && (
